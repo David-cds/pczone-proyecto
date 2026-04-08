@@ -4,19 +4,22 @@ include("includes/conexion.php");
 
 $error = "";
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = $_POST["email"];
     $password = $_POST["password"];
 
+    // Consulta preparada
+    $query = $conexion->prepare("SELECT * FROM usuarios WHERE email = :email AND password = :password");
     
-    $query = "SELECT * FROM usuarios WHERE email='$email' AND password='$password'";
-    $resultado = mysqli_query($conexion, $query);
+    $query->bindParam(":email", $email);
+    $query->bindParam(":password", $password);
 
-    if (mysqli_num_rows($resultado) == 1) {
-        
-        $usuario = mysqli_fetch_assoc($resultado);
+    $query->execute();
+
+    if ($query->rowCount() == 1) {
+
+        $usuario = $query->fetch(PDO::FETCH_ASSOC);
 
         $_SESSION["usuario"] = $usuario["nombre"];
         $_SESSION["rol"] = $usuario["rol"];
@@ -36,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <h2>Iniciar sesión</h2>
 
-<form method="POST" action="">
+<form method="POST">
 
     <label>Email:</label><br>
     <input type="email" name="email" required><br><br>
