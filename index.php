@@ -1,20 +1,24 @@
 <?php 
 include("includes/header.php"); 
 include("includes/conexion.php");
-
+include("includes/funciones.php");
 
 $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : "";
 $orden = isset($_POST['orden']) ? $_POST['orden'] : "";
 
+// PAGINACIÓN
+$por_pagina = 6;
+list($pagina, $inicio) = obtenerPagina($por_pagina);
 
+// BASE QUERY
 $sql = "SELECT * FROM productos";
 
-// Filtrar categoría
+// FILTRO
 if($categoria != ""){
     $sql .= " WHERE categoria = :categoria";
 }
 
-// Ordenar
+// ORDEN
 if($orden == "precio_asc"){
     $sql .= " ORDER BY precio ASC";
 } elseif($orden == "precio_desc"){
@@ -23,9 +27,10 @@ if($orden == "precio_asc"){
     $sql .= " ORDER BY nombre ASC";
 }
 
+// PAGINACIÓN
+$sql .= " LIMIT $inicio, $por_pagina";
 
 $query = $conexion->prepare($sql);
-
 
 if($categoria != ""){
     $query->bindParam(":categoria", $categoria);
@@ -33,7 +38,11 @@ if($categoria != ""){
 
 $query->execute();
 $productos = $query->fetchAll(PDO::FETCH_ASSOC);
+
+// TOTAL PÁGINAS
+$total_paginas = totalPaginas($conexion, $categoria, $por_pagina);
 ?>
+
 
 <main>
 
