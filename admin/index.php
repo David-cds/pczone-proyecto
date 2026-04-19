@@ -42,7 +42,12 @@ $total_paginas = ceil($total / $por_pagina);
     <td><?= $p['precio'] ?>€</td>
     <td>
         <a href="editar_producto.php?id=<?= $p['id'] ?>">✏️ Editar</a> |
-        <a href="eliminar_producto.php?id=<?= $p['id'] ?>"onclick="return confirm('¿Borrar producto?')">Borrar </a>
+        <form action="eliminar_producto.php" method="POST" style="display:inline;">
+        <input type="hidden" name="id" value="<?= $p['id'] ?>">
+        <button type="submit" onclick="return confirm('¿Borrar producto?')">
+        ❌ Borrar
+    </button>
+</form>
     </td>
 </tr>
 <?php } ?>
