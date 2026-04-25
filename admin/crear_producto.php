@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     move_uploaded_file($_FILES["imagen"]["tmp_name"], $ruta);
 
-    // INSERTAR EN BD
+   
     $sql = "INSERT INTO productos (nombre, descripcion, precio, categoria, imagen) 
             VALUES (:nombre, :descripcion, :precio, :categoria, :imagen)";
 

@@ -46,6 +46,24 @@ $total_paginas = totalPaginas($conexion, $categoria, $por_pagina);
 
 <main>
 
+<!--FECHA (DATE JS) -->
+<p id="fecha"></p>
+
+<!--BOTÓN JQUERY -->
+<button id="toggleProductos">Mostrar/Ocultar productos</button>
+
+<!--AJAX -->
+<button id="cargarProductos">Cargar productos (AJAX)</button>
+<div id="resultado"></div>
+
+<!--SLIDESHOW -->
+<div class="slider">
+    <img src="uploads/ejemplo1.jpg" class="slide" width="200">
+    <img src="uploads/ejemplo2.jpg" class="slide" width="200">
+    <img src="uploads/ejemplo3.jpg" class="slide" width="200">
+</div>
+
+
 <!-- FILTROS -->
 <form method="POST">
 

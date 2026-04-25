@@ -1,6 +1,7 @@
 <?php 
 include("../includes/auth.php"); 
 include("../includes/conexion.php");
+include("../includes/header.php");
 
 // Productos por página
 $por_pagina = 5;
@@ -41,11 +42,11 @@ $total_paginas = ceil($total / $por_pagina);
     <td><?= $p['nombre'] ?></td>
     <td><?= $p['precio'] ?>€</td>
     <td>
-        <a href="editar_producto.php?id=<?= $p['id'] ?>">✏️ Editar</a> |
+        <a href="editar_producto.php?id=<?= $p['id'] ?>">Editar</a> |
         <form action="eliminar_producto.php" method="POST" style="display:inline;">
         <input type="hidden" name="id" value="<?= $p['id'] ?>">
         <button type="submit" onclick="return confirm('¿Borrar producto?')">
-        ❌ Borrar
+        Borrar
     </button>
 </form>
     </td>
