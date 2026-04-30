@@ -11,11 +11,13 @@ $por_pagina = 6;
 list($pagina, $inicio) = obtenerPagina($por_pagina);
 
 // BASE QUERY
-$sql = "SELECT * FROM productos";
+$sql = "SELECT productos.* 
+        FROM productos
+        INNER JOIN categorias ON productos.categoria_id=categorias.id";
 
 // FILTRO
 if($categoria != ""){
-    $sql .= " WHERE categoria = :categoria";
+    $sql .= " WHERE productos.categoria_id = :categoria";
 }
 
 // ORDEN
@@ -69,12 +71,10 @@ $total_paginas = totalPaginas($conexion, $categoria, $por_pagina);
 
     <select name="categoria">
         <option value="">Todas</option>
-        <option value="GPU" <?php if($categoria=="GPU") echo "selected"; ?>>Tarjetas gráficas</option>
-        <option value="CPU" <?php if($categoria=="CPU") echo "selected"; ?>>Procesadores</option>
-        <option value="RAM" <?php if($categoria=="RAM") echo "selected"; ?>>RAM</option>
-        <option value="Teclado" <?php if($categoria=="Teclado") echo "selected"; ?>>Teclados</option>
-        <option value="Raton" <?php if($categoria=="Raton") echo "selected"; ?>>Ratón</option>
-        <option value="Disco" <?php if($categoria=="Disco") echo "selected"; ?>>Discos duros</option>
+
+        <option value="1" <?php if($categoria=="1") echo "selected"; ?>>Portátiles</option>
+        <option value="2" <?php if($categoria=="2") echo "selected"; ?>>Sobremesa</option>
+        <option value="3" <?php if($categoria=="3") echo "selected"; ?>>Componentes</option>
     </select>
 
     <select name="orden">
@@ -100,7 +100,7 @@ $total_paginas = totalPaginas($conexion, $categoria, $por_pagina);
     <div class="card">
 
         <div class="img">
-            <img src="uploads/<?php echo $producto['imagen']; ?>" width="150">
+            <img src="<?php echo $producto['imagen']; ?>" width="150">
         </div>
 
         <p><?php echo $producto['nombre']; ?></p>
