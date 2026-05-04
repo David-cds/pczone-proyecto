@@ -1,6 +1,6 @@
-<?php
-session_start();
-?>
+<?php if(session_status()===PHP_SESSION_NONE){
+    session_start();
+}?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +13,27 @@ session_start();
     <header>
         <div class="logo-box">Logo</div>
         <div class="brand">PCZone</div>
+
+        <div class="usuario">
+
+    <?php if(isset($_SESSION['usuario'])){ ?>
+
+        👤 <?php echo $_SESSION['usuario']; ?>
+
+        <a href="logout.php">Cerrar sesión</a>
+
+        <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin'){ ?>
+            <a href="admin/index.php">Panel Admin</a>
+        <?php } ?>
+
+    <?php } else { ?>
+
+        <a href="login.php">Iniciar sesión</a>
+        <a href="registro.php">Registrarse</a>
+
+    <?php } ?>
+
+    </div>
     </header>
 
     <nav>
@@ -21,5 +42,3 @@ session_start();
         <a href="#">En Tendencia</a>
         <a href="#">Mas Buscado</a>
     </nav>
-</body>
-</html>
