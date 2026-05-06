@@ -5,13 +5,18 @@ include("includes/conexion.php");
 
 $error = "";
 
+$sql="SELECT usuarios.nombre as nombre,usuarios.email as email,usuarios.password as clave,roles.rol AS rol
+      FROM usuarios INNER JOIN roles ON usuarios.id_rol=roles.id 
+      WHERE usuarios.password = :password AND usuarios.email = :email";
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = $_POST["email"];
     $password = $_POST["password"];
 
     // Consulta preparada
-    $query = $conexion->prepare("SELECT * FROM usuarios WHERE email = :email AND password = :password");
+    $query = $conexion->prepare($sql);
     
     $query->bindParam(":email", $email);
     $query->bindParam(":password", $password);

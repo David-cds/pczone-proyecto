@@ -24,11 +24,11 @@ $total = $conexion->query("SELECT COUNT(*) FROM productos")->fetchColumn();
 $total_paginas = ceil($total / $por_pagina);
 ?>
 
-<h2>Panel Admin</h2>
+<h2 class="admin-title">Panel Admin</h2>
 
-<a href="crear_producto.php"> Añadir producto</a>
+<a href="crear_producto.php" class="btn-add"> Añadir producto</a>
 
-<table border="1">
+<table border="1" class="admin-table">
 <tr>
     <th>ID</th>
     <th>Nombre</th>
@@ -42,11 +42,12 @@ $total_paginas = ceil($total / $por_pagina);
     <td><?= $p['nombre'] ?></td>
     <td><?= $p['precio'] ?>€</td>
     <td>
-        <a href="editar_producto.php?id=<?= $p['id'] ?>">Editar</a> |
+        <a href="editar_producto.php?id=<?= $p['id'] ?>">Editar</a>
+
         <form action="eliminar_producto.php" method="POST" style="display:inline;">
         <input type="hidden" name="id" value="<?= $p['id'] ?>">
         <button type="submit" onclick="return confirm('¿Borrar producto?')">
-        Borrar
+            Borrar
     </button>
 </form>
     </td>
@@ -74,3 +75,7 @@ $total_paginas = ceil($total / $por_pagina);
 <?php } ?>
 
 </div>
+
+
+
+<?php include_once("../includes/footer.php"); ?>

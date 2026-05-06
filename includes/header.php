@@ -7,7 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>header</title>
-    <link rel="stylesheet" href="css/estilos.css">
+    <?php
+    $rutaCSS = (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) 
+    ? '../css/estilos.css' 
+    : 'css/estilos.css';
+?>
+
+<link rel="stylesheet" href="<?= $rutaCSS ?>">
 </head>
 <body>
     <header>

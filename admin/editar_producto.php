@@ -1,6 +1,13 @@
 <?php 
 include("../includes/auth.php"); 
 include("../includes/conexion.php");
+include("../includes/header.php");
+
+
+// Categorías
+$queryCat = $conexion->query("SELECT * FROM categorias");
+$categorias = $queryCat->fetchAll(PDO::FETCH_ASSOC);
+
 
 // Obtener ID por GET
 if(!isset($_GET["id"])){
@@ -29,17 +36,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $nombre = $_POST["nombre"];
     $precio = $_POST["precio"];
-    $categoria = $_POST["categoria"];
+    $categoria_id= $_POST["categoria_id"];
 
     $sql = "UPDATE productos 
-            SET nombre = :nombre, precio = :precio, categoria = :categoria 
+            SET nombre = :nombre, precio = :precio, categoria_id= :categoria_id
             WHERE id = :id";
 
     $update = $conexion->prepare($sql);
 
     $update->bindParam(":nombre", $nombre);
     $update->bindParam(":precio", $precio);
-    $update->bindParam(":categoria", $categoria);
+    $update->bindParam(":categoria_id", $categoria_id);
     $update->bindParam(":id", $id);
 
     $update->execute();
@@ -62,12 +69,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     <label>Categoría:</label><br>
     <select name="categoria">
-        <option value="GPU" <?= $producto['categoria']=="GPU" ? "selected" : "" ?>>GPU</option>
-        <option value="CPU" <?= $producto['categoria']=="CPU" ? "selected" : "" ?>>CPU</option>
-        <option value="RAM" <?= $producto['categoria']=="RAM" ? "selected" : "" ?>>RAM</option>
-        <option value="Teclado" <?= $producto['categoria']=="Teclado" ? "selected" : "" ?>>Teclado</option>
-        <option value="Raton" <?= $producto['categoria']=="Raton" ? "selected" : "" ?>>Ratón</option>
-        <option value="Disco" <?= $producto['categoria']=="Disco" ? "selected" : "" ?>>Disco</option>
+       <?php foreach($categorias as $cat){ ?>
+            <option value="<?= $cat['id'] ?>" 
+                <?= $producto['categoria_id'] == $cat['id'] ? "selected" : "" ?>>
+                <?= $cat['nombre'] ?>
+            </option>
+        <?php } ?>
     </select><br><br>
 
     <button type="submit">💾 Guardar cambios</button>
@@ -76,3 +83,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <br>
 <a href="index.php">⬅ Volver</a>
+
+
+<?php include_once("../includes/footer.php"); ?>
