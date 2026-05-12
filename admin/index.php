@@ -33,6 +33,7 @@ $total_paginas = ceil($total / $por_pagina);
     <th>ID</th>
     <th>Nombre</th>
     <th>Precio</th>
+    <th>Imagen</th>
     <th>Acciones</th>
 </tr>
 
@@ -41,16 +42,25 @@ $total_paginas = ceil($total / $por_pagina);
     <td><?= $p['id'] ?></td>
     <td><?= $p['nombre'] ?></td>
     <td><?= $p['precio'] ?>€</td>
-    <td>
-        <a href="editar_producto.php?id=<?= $p['id'] ?>">Editar</a>
+     <td>
+        <img src="../<?=$p['imagen'] ?>" width="80">
+   <td>
+    <div class="acciones">
 
-        <form action="eliminar_producto.php" method="POST" style="display:inline;">
-        <input type="hidden" name="id" value="<?= $p['id'] ?>">
-        <button type="submit" onclick="return confirm('¿Borrar producto?')">
-            Borrar
-    </button>
-</form>
-    </td>
+        <a href="editar_producto.php?id=<?= $p['id'] ?>" class="btn">
+            Editar
+        </a>
+
+        <form action="eliminar_producto.php" method="POST" class="inline-form">
+            <input type="hidden" name="id" value="<?= $p['id'] ?>">
+            <button type="submit" class="btn"
+                onclick="return confirm('¿Borrar producto?')">
+                Borrar
+            </button>
+        </form>
+
+    </div>
+</td>
 </tr>
 <?php } ?>
 

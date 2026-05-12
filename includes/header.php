@@ -1,50 +1,59 @@
-<?php if(session_status()===PHP_SESSION_NONE){
+<?php 
+if(session_status()===PHP_SESSION_NONE){
     session_start();
-}?>
+}
+
+// Detectar si estamos en /admin/
+$enAdmin = (strpos($_SERVER['PHP_SELF'], '/admin/') !== false);
+
+// Ruta base dinámica
+$rutaBase = $enAdmin ? '../' : '';
+$rutaCSS = $enAdmin ? '../css/estilos.css' : 'css/estilos.css';
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>header</title>
-    <?php
-    $rutaCSS = (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) 
-    ? '../css/estilos.css' 
-    : 'css/estilos.css';
-?>
+    <title>PCZone</title>
 
-<link rel="stylesheet" href="<?= $rutaCSS ?>">
+    <link rel="stylesheet" href="<?= $rutaCSS ?>">
 </head>
-<body>
-    <header>
-        <div class="logo-box">Logo</div>
-        <div class="brand">PCZone</div>
 
-        <div class="usuario">
+<body>
+
+<header>
+    <div class="logo-box">Logo</div>
+    <div class="brand">PCZone</div>
+
+    <div class="usuario">
 
     <?php if(isset($_SESSION['usuario'])){ ?>
 
-        👤 <?php echo $_SESSION['usuario']; ?>
+        👤 <?= $_SESSION['usuario']; ?>
 
-        <a href="logout.php">Cerrar sesión</a>
+        <a href="<?= $rutaBase ?>logout.php">Cerrar sesión</a>
 
         <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin'){ ?>
-            <a href="admin/index.php">Panel Admin</a>
+            <a href="<?= $rutaBase ?>admin/index.php">Panel Admin</a>
         <?php } ?>
 
     <?php } else { ?>
 
-        <a href="login.php">Iniciar sesión</a>
-        <a href="registro.php">Registrarse</a>
+        <a href="<?= $rutaBase ?>login.php">Iniciar sesión</a>
+        <a href="<?= $rutaBase ?>registro.php">Registrarse</a>
 
     <?php } ?>
 
-    </div>
-    </header>
+    <a href="<?= $rutaBase ?>carrito.php">🛒 Carrito</a>
 
-    <nav>
-        <a href="index.php">Inicio</a>
-        <a href="productos.php">Ofertas</a>
-        <a href="#">En Tendencia</a>
-        <a href="#">Mas Buscado</a>
-    </nav>
+    </div>
+</header>
+
+<nav>
+    <a href="<?= $rutaBase ?>index.php">Inicio</a>
+    <a href="<?= $rutaBase ?>productos.php">Ofertas</a>
+    <a href="#">En Tendencia</a>
+    <a href="#">Más buscado</a>
+</nav> 

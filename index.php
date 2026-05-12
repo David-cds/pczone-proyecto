@@ -105,6 +105,7 @@ $total_paginas = totalPaginas($conexion, $categoria, $por_pagina);
 
         <p><?php echo $producto['nombre']; ?></p>
         <p><?php echo $producto['precio']; ?> €</p>
+        <a href="agregar_carrito.php?id=<?= $producto['id'] ?>">Añadir al carrito</a>
 
     </div>
 
