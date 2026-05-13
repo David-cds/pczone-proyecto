@@ -25,6 +25,6 @@ foreach($productos as $p){
 
 setcookie("carrito", $nuevo, time()+3600);
 
-header("Location: index.php");
+header("Location: carrito.php");
 
 ?>

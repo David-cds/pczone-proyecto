@@ -90,9 +90,11 @@ if(isset($_COOKIE["carrito"])){
 
                 <span><?= $cantidad ?></span>
 
-                <a href="sumar_carrito.php?id=<?= $id ?>">
+                <a href="sumar_carrito.php?id=<?= $id ?>">+</a>
 
             </div>
+
+            <a class="btn-pagar" href="pagar.php" onclick="return confirm('¿Seguro que quieres realizar el pedido?')">Pagar</a>
 
         </div>
 

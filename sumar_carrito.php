@@ -8,6 +8,6 @@ $carrito .= $id . ",";
 
 setcookie("carrito", $carrito, time()+3600);
 
-header("Location: index.php");
+header("Location: carrito.php");
 
 ?>
