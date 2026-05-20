@@ -457,3 +457,24 @@ a[href="index.php"]{
     width: 200px;
 }
 
+.btn-pagar{
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 12px 20px;
+
+    background: green;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 5px;
+
+    transition: 0.3s;
+}
+
+.btn-pagar:hover{
+    background: darkgreen;
+}

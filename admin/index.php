@@ -27,6 +27,9 @@ $total_paginas = ceil($total / $por_pagina);
 <h2 class="admin-title">Panel Admin</h2>
 
 <a href="crear_producto.php" class="btn-add"> Añadir producto</a>
+<a href="../pdf_productos.php" target="_blank" class="btn-add">
+    Generar PDF Productos
+</a>
 
 <table border="1" class="admin-table">
 <tr>

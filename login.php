@@ -5,9 +5,17 @@ include("includes/conexion.php");
 
 $error = "";
 
-$sql="SELECT usuarios.nombre as nombre,usuarios.email as email,usuarios.password as clave,roles.rol AS rol
-      FROM usuarios INNER JOIN roles ON usuarios.id_rol=roles.id 
-      WHERE usuarios.password = :password AND usuarios.email = :email";
+$sql="SELECT usuarios.id as id,
+usuarios.nombre as nombre,
+usuarios.email as email,
+usuarios.password as clave,
+roles.rol AS rol
+
+FROM usuarios 
+INNER JOIN roles ON usuarios.id_rol=roles.id 
+
+WHERE usuarios.password = :password 
+AND usuarios.email = :email";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -27,9 +35,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $usuario = $query->fetch(PDO::FETCH_ASSOC);
 
+        $_SESSION["id"] = $usuario["id"];
         $_SESSION["usuario"] = $usuario["nombre"];
         $_SESSION["rol"] = $usuario["rol"];
-
+        
+        
         header("Location: index.php");
         exit();
 

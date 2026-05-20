@@ -60,9 +60,9 @@ $total_paginas = totalPaginas($conexion, $categoria, $por_pagina);
 
 <!--SLIDESHOW -->
 <div class="slider">
-    <img src="uploads/ejemplo1.jpg" class="slide" width="200">
-    <img src="uploads/ejemplo2.jpg" class="slide" width="200">
-    <img src="uploads/ejemplo3.jpg" class="slide" width="200">
+    <img src="img/slideshow/grafica_3060.jpg" class="slide" width="200">
+    <img src="img/slideshow/PC_Ryzen.jpg" class="slide" width="200">
+    <img src="img/slideshow/portatil_HP.jpg" class="slide" width="200">
 </div>
 
 

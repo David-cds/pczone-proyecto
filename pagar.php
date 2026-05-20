@@ -4,6 +4,12 @@ session_start();
 
 include("includes/conexion.php");
 
+if(!isset($_SESSION["id"])){
+
+    header("Location: login.php");
+    exit;
+}
+
 if(!isset($_COOKIE["carrito"])){
 
     header("Location: carrito.php");
@@ -12,62 +18,46 @@ if(!isset($_COOKIE["carrito"])){
 
 $productos = explode(",", $_COOKIE["carrito"]);
 
-$contador = [];
+$total = 0;
 
-/* CONTAR PRODUCTOS */
+/* CALCULAR TOTAL */
 
-foreach($productos as $id){
+foreach($productos as $idProducto){
 
-    if($id != ""){
+    if($idProducto != ""){
 
-        if(isset($contador[$id])){
+        $sql = "SELECT * FROM productos WHERE id = :id";
 
-            $contador[$id]++;
+        $query = $conexion->prepare($sql);
 
-        } else {
+        $query->bindParam(":id", $idProducto);
 
-            $contador[$id] = 1;
+        $query->execute();
+
+        $producto = $query->fetch(PDO::FETCH_ASSOC);
+
+        if($producto){
+
+            $total += $producto["precio"];
         }
     }
 }
 
-/* GUARDAR PEDIDOS */
+/* GUARDAR PEDIDO */
 
-foreach($contador as $id => $cantidad){
+$sqlPedido = "INSERT INTO pedidos 
+(usuario_id, total, fecha)
 
-    $sql = "SELECT * FROM productos WHERE id = :id";
+VALUES
+(:usuario_id, :total, NOW())";
 
-    $query = $conexion->prepare($sql);
+$queryPedido = $conexion->prepare($sqlPedido);
 
-    $query->bindParam(":id", $id);
+$queryPedido->bindParam(":usuario_id", $_SESSION["id"]);
 
-    $query->execute();
+$queryPedido->bindParam(":total", $total);
 
-    $producto = $query->fetch(PDO::FETCH_ASSOC);
-
-    if($producto){
-
-        $total = $producto["precio"] * $cantidad;
-
-        $insert = "INSERT INTO pedidos 
-        (usuario, producto_id, cantidad, total)
-
-        VALUES
-        (:usuario, :producto_id, :cantidad, :total)";
-
-        $guardar = $conexion->prepare($insert);
-
-        $guardar->bindParam(":usuario", $_SESSION["usuario"]);
-
-        $guardar->bindParam(":producto_id", $id);
-
-        $guardar->bindParam(":cantidad", $cantidad);
-
-        $guardar->bindParam(":total", $total);
-
-        $guardar->execute();
-    }
-}
+$queryPedido->execute();
 
 /* VACIAR CARRITO */
 
@@ -76,3 +66,6 @@ setcookie("carrito", "", time() - 3600, "/");
 /* REDIRECT */
 
 header("Location: pedido_realizado.php");
+exit;
+
+?>

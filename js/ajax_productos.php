@@ -1,9 +1,11 @@
 <?php
-include("includes/conexion.php");
+include("../includes/conexion.php");
 
 $query = $conexion->query("SELECT nombre, precio FROM productos LIMIT 5");
 $productos = $query->fetchAll(PDO::FETCH_ASSOC);
 
+
+header("Content-Type: application/json");
 
 echo json_encode($productos);
 
