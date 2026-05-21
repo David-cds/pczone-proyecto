@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <h2>Iniciar sesión</h2>
 
-<form method="POST">
+<form method="POST" id="formLogin">
 
     <label>Email:</label><br>
     <input type="email" name="email" required><br><br>

@@ -15,12 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $descripcion = $_POST["descripcion"];
     $precio = $_POST["precio"];
     $categoria_id = $_POST["categoria_id"];
+    $stock = $_POST["stock"];
 
     // SUBIR IMAGEN
     $imagen = $_FILES["imagen"]["name"];
-    $ruta = "../uploads/" . $imagen;
+    $ruta = "img/productos/" . $imagen;
 
-    move_uploaded_file($_FILES["imagen"]["tmp_name"], $ruta);
+    move_uploaded_file($_FILES["imagen"]["tmp_name"], "../". $ruta);
 
    
     $sql = "INSERT INTO productos (nombre, descripcion, precio, categoria_id, imagen) 
@@ -31,8 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query->bindParam(":nombre", $nombre);
     $query->bindParam(":descripcion", $descripcion);
     $query->bindParam(":precio", $precio);
-    $query->bindParam(":categoria", $categoria);
-    $query->bindParam(":imagen", $imagen);
+    $query->bindParam(":categoria_id", $categoria_id);
+    $query->bindParam(":imagen", $ruta);
 
     $query->execute();
 
@@ -44,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <h2>Añadir Producto</h2>
 
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" id="formProducto">
 
     <label>Nombre:</label><br>
     <input type="text" name="nombre" required><br><br>
@@ -63,6 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </option>
         <?php } ?>
     </select><br><br>
+
+    <label>Stock:</label>
+    <input type="number" name="stock" required><br><br>
 
     <label>Imagen:</label><br>
     <input type="file" name="imagen" required><br><br>

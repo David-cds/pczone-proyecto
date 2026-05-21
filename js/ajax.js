@@ -29,4 +29,12 @@ $(document).ready(function(){
 
     });
 
+     // OCULTAR RESULTADO
+
+    $("#ocultarProductos").click(function(){
+
+        $("#resultado").slideUp();
+
+    });
+
 });

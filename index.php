@@ -56,6 +56,9 @@ $total_paginas = totalPaginas($conexion, $categoria, $por_pagina);
 
 <!--AJAX -->
 <button id="cargarProductos">Cargar productos (AJAX)</button>
+
+<button id="ocultarProductos">Ocultar productos</button>
+
 <div id="resultado"></div>
 
 <!--SLIDESHOW -->

@@ -53,7 +53,7 @@ $rutaCSS = $enAdmin ? '../css/estilos.css' : 'css/estilos.css';
 
 <nav>
     <a href="<?= $rutaBase ?>index.php">Inicio</a>
-    <a href="<?= $rutaBase ?>productos.php">Ofertas</a>
-    <a href="#">En Tendencia</a>
-    <a href="#">Más buscado</a>
+    <a href="<?= $rutaBase ?>sobre-nosotros.php">Sobre Nosotros</a>
+    <a href="<?= $rutaBase ?>ayuda.php">Ayuda</a>
+    <a href="<?= $rutaBase ?>contacto.php">Contacto</a>
 </nav> 
