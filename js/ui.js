@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function(){
 
-    // DATE
+    // Obtener dia,mes y año actuales
     let fecha = new Date();
     let f = document.getElementById("fecha");
 
@@ -20,7 +20,7 @@ $(document).ready(function(){
         $(".productos").slideToggle();
     });
 
-    // Hover tarjetas
+    // Hover en las tarjetas al poner raton sobre ellas
     $(".card").hover(
         function(){ $(this).fadeTo(200, 0.7); },
         function(){ $(this).fadeTo(200, 1); }

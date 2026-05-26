@@ -14,5 +14,6 @@
 <script src="js/validaciones.js"></script>
 <script src="js/ajax.js"></script>
 <script src="js/slider.js"></script>
+<script src="js/contacto.js"></script>
 </body>
 </html>

@@ -6,6 +6,8 @@ include("includes/funciones.php");
 $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : "";
 $orden = isset($_POST['orden']) ? $_POST['orden'] : "";
 
+$buscar = isset($_POST['buscar']) ? trim($_POST['buscar']) : "";
+
 // PAGINACIÓN
 $por_pagina = 6;
 list($pagina, $inicio) = obtenerPagina($por_pagina);
@@ -16,8 +18,18 @@ $sql = "SELECT productos.*
         INNER JOIN categorias ON productos.categoria_id=categorias.id";
 
 // FILTRO
+$where = [];
+
 if($categoria != ""){
-    $sql .= " WHERE productos.categoria_id = :categoria";
+    $where[] = "productos.categoria_id = :categoria";
+}
+
+if($buscar != ""){
+    $where[] = "productos.nombre LIKE :buscar";
+}
+
+if(!empty($where)){
+    $sql .= " WHERE " . implode(" AND ", $where);
 }
 
 // ORDEN
@@ -36,6 +48,11 @@ $query = $conexion->prepare($sql);
 
 if($categoria != ""){
     $query->bindParam(":categoria", $categoria);
+}
+
+if($buscar != ""){
+    $textoBusqueda = "%" . $buscar . "%";
+    $query->bindParam(":buscar", $textoBusqueda);
 }
 
 $query->execute();
@@ -71,6 +88,9 @@ $total_paginas = totalPaginas($conexion, $categoria, $por_pagina);
 
 <!-- FILTROS -->
 <form method="POST">
+
+     <input type="text" name="buscar" placeholder="Buscar productos..." value="<?php echo isset($_POST['buscar']) ? $_POST['buscar'] : ''; ?>">
+
 
     <select name="categoria">
         <option value="">Todas</option>

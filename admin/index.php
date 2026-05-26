@@ -36,6 +36,7 @@ $total_paginas = ceil($total / $por_pagina);
     <th>ID</th>
     <th>Nombre</th>
     <th>Precio</th>
+    <th>Stock</th>
     <th>Imagen</th>
     <th>Acciones</th>
 </tr>
@@ -45,6 +46,7 @@ $total_paginas = ceil($total / $por_pagina);
     <td><?= $p['id'] ?></td>
     <td><?= $p['nombre'] ?></td>
     <td><?= $p['precio'] ?>€</td>
+    <td><?= $p['stock'] ?></td>
      <td>
         <img src="../<?=$p['imagen'] ?>" width="80">
    <td>
