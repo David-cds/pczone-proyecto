@@ -24,8 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     move_uploaded_file($_FILES["imagen"]["tmp_name"], "../". $ruta);
 
    
-    $sql = "INSERT INTO productos (nombre, descripcion, precio, categoria_id, imagen) 
-            VALUES (:nombre, :descripcion, :precio, :categoria_id, :imagen)";
+    $sql = "INSERT INTO productos (nombre, descripcion, precio, categoria_id,stock,imagen) 
+            VALUES (:nombre, :descripcion, :precio, :categoria_id,:stock,:imagen)";
 
     $query = $conexion->prepare($sql);
 
@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query->bindParam(":descripcion", $descripcion);
     $query->bindParam(":precio", $precio);
     $query->bindParam(":categoria_id", $categoria_id);
+    $query->bindParam(":stock", $stock);
     $query->bindParam(":imagen", $ruta);
 
     $query->execute();
@@ -41,38 +42,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+<main>
 
+    <h2 class="admin-title">Añadir Nuevo Producto</h2>
 
-<h2>Añadir Producto</h2>
+    <form action="crear_producto.php" method="POST" enctype="multipart/form-data">
+        
+        <label for="nombre">Nombre del Producto:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej. Tarjeta Gráfica RTX 4060" required>
 
-<form method="POST" enctype="multipart/form-data" id="formProducto">
+        <label for="precio">Precio (€):</label>
+        <input type="number" id="precio" name="precio" step="0.01" placeholder="Ej. 299.99" required>
 
-    <label>Nombre:</label><br>
-    <input type="text" name="nombre" required><br><br>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" required></textarea>
 
-    <label>Descripción:</label><br>
-    <textarea name="descripcion"></textarea><br><br>
+        <label for="categoria_id">Categoría:</label>
+        <select id="categoria_id" name="categoria_id" required>
 
-    <label>Precio:</label><br>
-    <input type="number" name="precio" step="0.01" required><br><br>
+        <option value="">Selecciona categoría</option>
 
-    <label>Categoría:</label><br>
-    <select name="categoria_id">
-         <?php foreach($categorias as $cat){ ?>
-            <option value="<?= $cat['id'] ?>">
-                <?= $cat['nombre'] ?>
+        <?php foreach($categorias as $categoria){ ?>
+
+            <option value="<?= $categoria['id'] ?>">
+                <?= $categoria['nombre'] ?>
             </option>
+
         <?php } ?>
-    </select><br><br>
 
-    <label>Stock:</label>
-    <input type="number" name="stock" required><br><br>
+        </select>
 
-    <label>Imagen:</label><br>
-    <input type="file" name="imagen" required><br><br>
+        <label for="stock">Stock Disponible:</label>
+        <input type="number" id="stock" name="stock" placeholder="Ej. 15" required>
 
-    <button type="submit">Guardar</button>
+        <label for="imagen">Imagen del Producto:</label>
+        <input type="file" id="imagen" name="imagen" accept="image/*" required>
 
-</form>
+        <button type="submit">Guardar Producto</button>
+        
+        <a href="index.php" class="btn-add" style="margin-top: 15px !important;">Volver al Panel</a>
+    </form>
+
+</main>
 
 <?php include_once("../includes/footer.php"); ?>
+

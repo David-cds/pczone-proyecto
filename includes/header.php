@@ -24,7 +24,11 @@ $rutaCSS = $enAdmin ? '../css/estilos.css' : 'css/estilos.css';
 <body>
 
 <header>
-    <div class="logo-box">Logo</div>
+    <div class="logo-box">
+    <a href="<?= $rutaBase ?>index.php">
+        <img src="<?= $rutaBase ?>img/banner/logo.png" alt="Logo PCZone" class="logo">
+    </a>
+    </div>
     <div class="brand">PCZone</div>
 
     <div class="usuario">
