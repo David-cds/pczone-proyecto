@@ -1,6 +1,7 @@
 <?php 
 include("../includes/auth.php"); 
 include("../includes/conexion.php");
+include("../includes/header.php");
 
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])){
 
@@ -14,4 +15,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id"])){
 
 header("Location: index.php");
 exit();
-?>
+
+
+
+include_once("../includes/footer.php"); ?>
+

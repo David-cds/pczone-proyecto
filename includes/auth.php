@@ -1,15 +1,9 @@
-<?php
-session_start();
-
-// Comprobar si está logueado
-if (!isset($_SESSION["usuario"])) {
-    header("Location: ../login.php");
-    exit();
+<?php if(session_status()===PHP_SESSION_NONE){
+    session_start();
 }
 
-// Comprobar si es admin
-if ($_SESSION["rol"] != "admin") {
-    header("Location: ../index.php");
+if (!isset($_SESSION["usuario"]) || !isset($_SESSION["rol"]) || $_SESSION["rol"] != "admin") {
+    header("Location: ../login.php");
     exit();
 }
 ?>
