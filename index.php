@@ -20,11 +20,25 @@ if($categoria != ""){
 
 // ORDEN
 if($orden == "precio_asc"){
+
     $sql .= " ORDER BY precio ASC";
-} elseif($orden == "precio_desc"){
+
+}
+elseif($orden == "precio_desc"){
+
     $sql .= " ORDER BY precio DESC";
-} elseif($orden == "nombre"){
+
+}
+elseif($orden == "nombre"){
+
     $sql .= " ORDER BY nombre ASC";
+
+}
+else{
+
+    // MOSTRAR LOS PRODUCTOS MÁS NUEVOS PRIMERO
+    $sql .= " ORDER BY productos.id DESC";
+
 }
 
 // PAGINACIÓN
@@ -86,13 +100,37 @@ $total_paginas = totalPaginas($conexion, $categoria, $por_pagina);
         </div>
 
         <p><?php echo $producto['nombre']; ?></p>
+        <p><?php echo $producto['descripcion']; ?></p>
         <p><?php echo $producto['precio']; ?> €</p>
+<<<<<<< Updated upstream
+=======
+        <p>Stock: <?= $producto['stock'] ?></p>
+        <?php if($producto['stock'] > 0){ ?>
+
+        <a href="agregar_carrito.php?id=<?= $producto['id'] ?>"> Añadir al carrito</a>
+
+        <?php } else { ?>
+            <p style="color:red;">Sin stock</p>
+        <?php } ?>
+>>>>>>> Stashed changes
 
     </div>
 
 <?php } ?>
 
 </section>
+
+<div class="paginacion">
+
+<?php for($i = 1; $i <= $total_paginas; $i++){ ?>
+
+    <a href="?pagina=<?= $i ?>">
+        <?= $i ?>
+    </a>
+
+<?php } ?>
+
+</div>
 
 </main>
 
