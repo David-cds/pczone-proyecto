@@ -67,7 +67,7 @@ if(isset($_COOKIE["carrito"])){
                 <img class="img-carrito" src="<?= $producto['imagen'] ?>">
             </div>
 
-            <!-- INFO -->
+            
             <div class="carrito-info">
 
                 <h3><?= $producto['nombre'] ?></h3>
@@ -83,7 +83,7 @@ if(isset($_COOKIE["carrito"])){
 
             </div>
 
-            <!-- BOTONES -->
+            
             <div class="cantidad">
 
                 <a href="restar_carrito.php?id=<?= $id ?>">-</a>

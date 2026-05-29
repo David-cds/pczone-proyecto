@@ -63,7 +63,7 @@ $queryPedido->execute();
 
 setcookie("carrito", "", time() - 3600, "/");
 
-/* REDIRECT */
+
 
 header("Location: pedido_realizado.php");
 exit;

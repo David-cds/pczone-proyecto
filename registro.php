@@ -7,22 +7,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nombre = $_POST["nombre"];
     $email = $_POST["email"];
-    $password = $_POST["password"];
+    $password = $_POST["password"]; 
 
-    // Comprobar si existe
+    // Comprobar si existe el correo
     $check = $conexion->prepare("SELECT * FROM usuarios WHERE email = :email");
     $check->bindParam(":email", $email);
     $check->execute();
 
     if ($check->rowCount() > 0) {
-
         $mensaje = "El email ya está registrado";
-
     } else {
-
-        // Insertar usuario
-        $query = $conexion->prepare("INSERT INTO usuarios (nombre, email, password, rol) 
-                                     VALUES (:nombre, :email, :password, 'usuario')");
+        
+        $query = $conexion->prepare("INSERT INTO usuarios (nombre, email, password, id_rol) 
+                                     VALUES (:nombre, :email, :password, 2)");
 
         $query->bindParam(":nombre", $nombre);
         $query->bindParam(":email", $email);
@@ -40,26 +37,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php include("includes/header.php"); ?>
 
 <main>
+    <h2 class="admin-title">Registro</h2>
 
-<h2>Registro</h2>
+    <form method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
 
-<form method="POST">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
 
-    <label>Nombre:</label><br>
-    <input type="text" name="nombre" required><br><br>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
 
-    <label>Email:</label><br>
-    <input type="email" name="email" required><br><br>
+        <button type="submit">Registrarse</button>
+    </form>
 
-    <label>Contraseña:</label><br>
-    <input type="password" name="password" required><br><br>
-
-    <button type="submit">Registrarse</button>
-
-</form>
-
-<p><?php echo $mensaje; ?></p>
-
+    <?php if(!empty($mensaje)) { ?>
+        <p style="text-align: center; font-weight: bold; margin-top: 15px; color: #000000;"><?= $mensaje ?></p>
+    <?php } ?>
 </main>
 
 <?php include("includes/footer.php"); ?>

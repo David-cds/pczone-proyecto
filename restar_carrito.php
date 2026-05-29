@@ -12,7 +12,7 @@ foreach($productos as $p){
 
     if($p == "") continue;
 
-    // borrar SOLO 1
+    
     if($p == $id && $eliminado == false){
 
         $eliminado = true;

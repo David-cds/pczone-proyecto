@@ -1,13 +1,11 @@
-/* ==========================================================================
-   1. RESET GENERAL Y CONFIGURACIÓN DE PANTALLA FIJA (Scroll en Main)
-   ========================================================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Bloqueamos el scroll exterior en la raíz del navegador para congelar la pantalla */
+
 html, body {
     width: 100%;
     height: 100%;
@@ -15,21 +13,16 @@ html, body {
 }
 
 body {
-    font-family: sans-serif; /* Requisito: Fuente principal de la guía */
-    background-color: #FFFFFF; /* Requisito: Fondo general blanco */
-    color: #000000; /* Requisito: Texto principal negro */
+    font-family: sans-serif; 
+    background-color: #FFFFFF; 
+    color: #000000; 
     font-size: 14px; 
     line-height: 1.5;
-    
-    /* Estructura Flexbox vertical exacta para aislar la cabecera y el pie */
     display: flex;
     flex-direction: column;
 }
 
-/* EL TRUCO DEL OVERFLOW AUTO (Soporta Tienda y Panel de Administración):
-   El contenedor principal absorbe el scroll de forma flexible ocupando el espacio libre.
-   Añadimos selectores universales de admin para asegurar que sus tablas no se congelen.
-*/
+
 main, 
 .main-content, 
 .container, 
@@ -38,28 +31,28 @@ main,
 .admin-page,
 div[class*="admin"] {
     padding: 20px;
-    flex: 1 1 auto;    /* Se estira y se encoge dinámicamente según el monitor */
-    overflow-y: auto;  /* ¡MÁGICO! Activa el scroll vertical interno si el contenido desborda */
-    min-height: 0;     /* Previene colapsos elásticos accidentales en navegadores */
+    flex: 1 1 auto;    
+    overflow-y: auto;  
+    min-height: 0;     
     background-color: #FFFFFF;
     width: 100%;
 }
 
 /* ==========================================================================
-   2. DISEÑO BASE: MÓVIL FIRST (Elementos fijos en los extremos)
+   2. DISEÑO BASE: MÓVIL FIRST 
    ========================================================================== */
 
 /* --- HEADER --- */
 header {
     display: flex;
     align-items: center;
-    background-color: #FDEBD0; /* Requisito: Color primario corporativo */
+    background-color: #FDEBD0; 
     color: #000000;
     justify-content: space-between;
     padding: 10px 20px;
     flex-wrap: wrap;
     border-bottom: 1px solid #333333;
-    flex-shrink: 0; /* Impide físicamente que el header se aplaste o pierda su tamaño */
+    flex-shrink: 0; 
 }
 
 .logo-box {
@@ -87,7 +80,7 @@ header {
     text-align: center;
     padding: 10px;
     font-weight: bold; 
-    font-size: 22px; /* Requisito: Rango 20px - 24px */
+    font-size: 22px; 
     color: #000000;
 }
 
@@ -104,33 +97,51 @@ header {
     font-weight: bold;
 }
 
-/* --- NAV (Móvil: Formato Vertical de la Guía) --- */
+
 nav {
     display: flex;
-    flex-direction: column; 
+    flex-direction: row;        
     background: #FFFFFF;
     border-bottom: 2px solid #333333;
     width: 100%;
-    flex-shrink: 0; /* Evita que el menú colapse */
+    flex-shrink: 0;             
+    
+   
+    overflow-x: auto;           
+    white-space: nowrap;       
+    -webkit-overflow-scrolling: touch; 
 }
 
 nav a {
-    display: block;
-    padding: 14px 20px; 
+    display: inline-block;      
+    padding: 12px 18px;         
     text-decoration: none;
     color: #000000;
     text-align: center;
-    border-bottom: 1px solid #EEEEEE;
-    font-size: 15px; /* Requisito: Rango 14px - 16px */
+    border-bottom: none;        
+    border-right: 1px solid #EEEEEE; 
+    font-size: 14px;           
     font-weight: bold;
-    transition: 0.3s;
+    flex: 0 0 auto;             
+    transition: 0.2s;
 }
 
-nav a:hover {
-    background: #EEEEEE;
+nav a:last-child {
+    border-right: none;         
 }
 
-/* --- PRODUCTOS TIENDA (Móvil: Distribución elástica libre de cortes) --- */
+nav a:hover, nav a:active {
+    background: #EEEEEE;        
+}
+
+
+nav::-webkit-scrollbar {
+    height: 3px;               
+}
+nav::-webkit-scrollbar-thumb {
+    background: #DDDDDD;
+}
+
 .productos {
     display: flex;
     flex-direction: column;
@@ -141,10 +152,10 @@ nav a:hover {
 }
 
 .card {
-    background: #FFFFFF; /* Requisito: Fondo blanco */
+    background: #FFFFFF; 
     padding: 15px;
-    border: 1px solid #DDDDDD; /* Requisito: Borde fino gris */
-    border-radius: 0px; /* Diseño limpio y plano de la guía */
+    border: 1px solid #DDDDDD; 
+    border-radius: 0px; 
     width: 100%;
     max-width: 340px;
     text-align: center;
@@ -152,17 +163,17 @@ nav a:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-shrink: 0; /* Evita que las tarjetas se deformen al achicar la pantalla */
+    flex-shrink: 0; 
 }
 
-/* Imagen con fondo gris respetando proporciones */
+
 .card img, img {
     display: block;
     width: 100%;
     height: 150px;
     max-height: 150px;
     object-fit: contain;
-    background-color: #EEEEEE !important; /* Requisito: Gris secundario */
+    background-color: #EEEEEE !important; 
     padding: 10px;
     margin: 0 auto;
     flex-shrink: 0;
@@ -175,63 +186,16 @@ nav a:hover {
     color: #000000;
 }
 
-/* --- SECCIÓN RESEÑAS --- */
-.resenas {
-    margin-top: 40px;
-}
 
-.resenas h2 {
-    font-size: 20px; /* Requisito: Rango 18px - 22px */
-    font-weight: bold;
-    margin-bottom: 15px;
-}
 
-.user {
-    margin-top: 20px;
-    border-top: 1px solid #EEEEEE;
-    padding-top: 15px;
-}
-
-.avatar {
-    width: 45px;
-    height: 45px;
-    background: #DDDDDD; 
-    border-radius: 50%; /* Requisito: Avatar estrictamente circular */
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.user h4, .user .nombre-usuario { 
-    font-weight: bold; /* Requisito: Nombre de usuario en negrita */
-    font-size: 14px;
-    display: inline-block;
-    margin-left: 10px;
-    vertical-align: middle;
-}
-
-.user .fecha {
-    font-size: 12px;
-    color: #333333;
-    margin-left: 8px;
-}
-
-.user .estrellas {
-    color: #000000; /* Requisito: Estrellas oscuras */
-    margin: 8px 0;
-}
-
-.user p {
-    font-size: 14px;
-    line-height: 1.4;
-}
 
 /* ==========================================================================
-   3. SLIDER / SLIDESHOW (CORREGIDO: 100% Adaptable, Entero y Sin Cortes)
+   3. SLIDER / SLIDESHOW 
    ========================================================================== */
 .slider {
     position: relative;
     width: 100%;
-    max-width: 1200px; /* Ancho máximo en armonía con la guía */
+    max-width: 1200px; 
     margin: 20px auto;
     padding: 0 10px;
     overflow: hidden;
@@ -239,34 +203,46 @@ nav a:hover {
 }
 
 .slide {
-    display: none; /* Gestionado dinámicamente por JS */
+    display: none; 
     width: 100%;
-    height: auto;  /* Elimina altos forzados para evitar pixelados o estiramientos */
+    height: auto;  
     max-height: 400px; 
     
-    /* SOLUCIÓN: 'contain' muestra la imagen ENTERA sin recortar los bordes */
+  
     object-fit: contain; 
     
-    background-color: #EEEEEE; /* Requisito: Fondo gris de cortesía si la imagen es corta */
+    background-color: #EEEEEE; 
     border: 1px solid #DDDDDD; 
     margin: 0 auto;
 }
 
-/* --- ADAPTACIONES DE ALTURA DEL SLIDER PARA RESPONSIVE --- */
+
 @media (min-width: 600px) {
-    .slide { max-height: 300px; }
+   
+    nav {
+        justify-content: space-around; 
+        overflow-x: visible; 
+    }
+
+    nav a {
+        flex: 1; 
+        text-align: center;
+        border-bottom: none;
+        padding: 15px 10px; 
+    }
+    
+  
 }
+
 @media (min-width: 1024px) {
     .slide { max-height: 400px; }
 }
 
-/* ==========================================================================
-   4. FOOTER (Obligado a mantenerse abajo con enlaces limpios)
-   ========================================================================== */
+
 .site-footer {
-    background: #333333; /* Requisito: Color secundario oscuro */
+    background: #333333; 
     color: #FFFFFF;
-    flex-shrink: 0; /* Bloquea el footer en la base e impide que colapse */
+    flex-shrink: 0; 
     width: 100%;
 }
 
@@ -291,7 +267,7 @@ nav a:hover {
 }
 
 .footer-col ul {
-    list-style: none; /* Elimina viñetas decorativas */
+    list-style: none; 
     padding: 0;
     margin: 0;
 }
@@ -301,19 +277,19 @@ nav a:hover {
 }
 
 .footer-col a {
-    color: #DDDDDD; /* Gris claro reglamentario */
+    color: #DDDDDD; 
     text-decoration: none;
     font-size: 13px;
     transition: color 0.2s ease;
 }
 
 .footer-col a:hover {
-    color: #FFFFFF; /* Blanco puro reactivo */
+    color: #FFFFFF; 
     text-decoration: underline;
 }
 
 .footer-bottom {
-    text-align: left; /* Requisito estricto: Alineación izquierda de la guía */
+    text-align: left; 
     padding: 15px 20px;
     background: #222222;
     font-size: 12px;
@@ -393,13 +369,13 @@ nav a:hover {
 .info-page {
     max-width: 900px;
     margin: 20px auto;
-    background: #FFFFFF; /* Requisito: Fondo blanco */
+    background: #FFFFFF;
     padding: 30px;
-    border: 1px solid #DDDDDD; /* Requisito: Borde fino gris */
+    border: 1px solid #DDDDDD; 
 }
 
 .info-page h2 {
-    font-size: 22px; /* Requisito: Rango 18px-22px */
+    font-size: 22px; 
     font-weight: bold;
     margin-bottom: 20px;
     color: #000000;
@@ -416,7 +392,7 @@ nav a:hover {
 }
 
 .info-page p {
-    font-size: 15px; /* Requisito: Rango 14px-16px */
+    font-size: 15px;
     line-height: 1.6;
     margin-bottom: 15px;
     color: #000000;
@@ -434,9 +410,9 @@ nav a:hover {
     color: #000000;
 }
 
-/* Bloques visuales destacados de información */
+
 .bloque-ayuda, .bloque-corporativo {
-    background-color: #EEEEEE; /* Requisito: Gris secundario visual */
+    background-color: #EEEEEE; 
     padding: 15px;
     margin-bottom: 20px;
     border-left: 4px solid #333333;
@@ -451,16 +427,17 @@ nav a:hover {
 }
 
 /* ==========================================================================
-   8. PANEL DE ADMINISTRACIÓN, COMPONENTES Y TABLAS CORREGIDAS
+   8. PANEL DE ADMINISTRACIÓN, COMPONENTES Y TABLAS 
    ========================================================================== */
 .admin-title {
+    justify-content: center;
     text-align: center;
     margin: 20px 0;
     font-size: 20px;
     font-weight: bold;
 }
 
-/* BOTONES DE ACCIÓN ADMIN COMPACTOS */
+
 .btn-add,
 a[href*="pdf"],
 a[href*="generar"],
@@ -489,14 +466,14 @@ a[href*="generar"]:hover,
     color: #000000 !important;
 }
 
-/* TABLA ADMIN REFORZADA CON SCROLL HORIZONTAL ADAPTATIVO */
+
 .admin-table {
     width: 100%;
     margin: 15px auto;
     border-collapse: collapse;
     background: white;
     border: 1px solid #DDDDDD;
-    display: table; /* Mantiene proporciones naturales de celdas */
+    display: table; 
 }
 
 .admin-table th {
@@ -516,7 +493,6 @@ a[href*="generar"]:hover,
     background: #EEEEEE;
 }
 
-/* Cajas contenedoras del submenú de acciones en la tabla */
 .acciones {
     display: flex;
     gap: 8px;
@@ -532,7 +508,7 @@ a[href*="generar"]:hover,
     display: inline-block;
 }
 
-/* Botones sencillos dentro de las celdas de la tabla */
+
 .admin-table .btn {
     padding: 6px 12px;
     background: #333333;
@@ -600,7 +576,7 @@ form button:hover {
     padding: 8px 12px;
     background: #EEEEEE;
     border: 1px solid #DDDDDD;
-    border-radius: 0px; /* Estilo plano de la guía */
+    border-radius: 0px; 
     text-decoration: none;
     color: black !important;
     font-weight: bold;

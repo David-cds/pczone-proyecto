@@ -6,7 +6,7 @@ include("../includes/header.php");
 // Productos por página
 $por_pagina = 5;
 
-// Página actual (mínimo 1)
+
 $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 if($pagina < 1) $pagina = 1;
 
